@@ -43,7 +43,7 @@ jobs:
         id: meta
         run: |
           PHP_VERSION=$(docker run --rm ${{ env.IMAGE }}:inspect php -r 'echo PHP_VERSION;')
-          APP_VERSION=$(docker run --rm ${{ env.IMAGE }}:inspect printenv WORDPRESS_VERSION)
+          APP_VERSION=$(docker run --rm ${{ env.IMAGE }}:inspect php -r 'require "/usr/src/wordpress/wp-includes/version.php"; echo $wp_version;')
           echo "php=${PHP_VERSION}" >> $GITHUB_OUTPUT
           echo "app=${APP_VERSION}" >> $GITHUB_OUTPUT
           echo "Built: WordPress ${APP_VERSION} / PHP ${PHP_VERSION}"
